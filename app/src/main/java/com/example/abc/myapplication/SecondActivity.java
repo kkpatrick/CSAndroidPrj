@@ -4,7 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.content.Intent;
+//import android.content.Intent;
 import android.widget.TextView;
 
 public class SecondActivity extends ActionBarActivity {
@@ -19,6 +19,7 @@ public class SecondActivity extends ActionBarActivity {
         buttonText = getIntent().getStringExtra(EXTRA_WHICH_DOOR);
         textView = (TextView)findViewById(R.id.TextView1);
         textView.setText(buttonText);
+        /*push test*/
     }
 
 
