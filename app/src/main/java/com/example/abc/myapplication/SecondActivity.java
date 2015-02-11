@@ -20,6 +20,7 @@ public class SecondActivity extends ActionBarActivity {
         textView = (TextView)findViewById(R.id.TextView1);
         textView.setText(buttonText);
         /*push test*/
+        /*pull test*/
     }
 
 
