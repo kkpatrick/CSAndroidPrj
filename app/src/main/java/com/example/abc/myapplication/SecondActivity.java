@@ -8,6 +8,7 @@ import android.os.Bundle;
 //import android.view.MenuItem;
 //import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.app.Activity;
 import android.widget.Button;
@@ -119,8 +120,20 @@ public class SecondActivity extends Activity {
         public void onClick(View v) {
             Intent intent = new Intent(v.getContext(), MainActivity.class);
             startActivity(intent);
+            finish();
         }
     };
+
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //back to last activity;
+            Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
