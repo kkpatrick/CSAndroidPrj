@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.abc.myapplication" >
+
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="false"
-        android:xlargeScreens="true"/>
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +25,10 @@
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second" >
+        </activity>
+        <activity
+            android:name=".ForTestActivity"
+            android:label="@string/title_activity_for_test" >
         </activity>
     </application>
 
