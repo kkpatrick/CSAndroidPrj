@@ -30,6 +30,10 @@
             android:name=".ForTestActivity"
             android:label="@string/title_activity_for_test" >
         </activity>
+        <activity
+            android:name=".DynamicRowActivity"
+            android:label="@string/title_activity_dynamic_row" >
+        </activity>
     </application>
 
 </manifest>
