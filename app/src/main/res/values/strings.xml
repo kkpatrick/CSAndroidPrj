@@ -9,4 +9,7 @@
     <string name="title_activity_dynamic_row">DynamicRowActivity</string>
     <string name="icon">Icon</string>
     <string name="size_template">Size: %d</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="go">Go</string>
+
 </resources>

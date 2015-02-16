@@ -64,8 +64,8 @@ public class MainActivity extends Activity {
             }
             Button button = (Button)v;
             String buttonText = (String)button.getText();
-            Intent intent = new Intent(v.getContext(), SecondActivity.class);
-            //Intent intent = new Intent(v.getContext(), DynamicRowActivity.class);
+            //Intent intent = new Intent(v.getContext(), SecondActivity.class);
+            Intent intent = new Intent(v.getContext(), ForTestActivity.class);
             intent.putExtra(SecondActivity.EXTRA_WHICH_DOOR, buttonText);
             intent.putExtra(SecondActivity.DOOR_NUMBER, doorNumber);
             startActivity(intent);
