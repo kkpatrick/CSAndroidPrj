@@ -1,6 +1,0 @@
-package com.example.abc.myInterface;
-
-// Declare the interface.
-public interface IDownload {
-    void download(String url);
-}
