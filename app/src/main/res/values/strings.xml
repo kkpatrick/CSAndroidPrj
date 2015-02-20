@@ -12,5 +12,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="go">Go</string>
     <string name="title_activity_number_inc_async">NumberIncAsyncActivity</string>
-
+    <string name="progress_dialog_top_message">Updating</string>
+    <string name="progress_dialog_sub_message">Please wait.</string>
 </resources>

@@ -2,6 +2,7 @@ package com.example.abc.myapplication;
 
 //import android.support.v7.app.ActionBarActivity;
 //import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 //import android.view.Menu;
 //import android.view.MenuItem;
@@ -12,10 +13,13 @@ import android.widget.TextView;
 
 import de.greenrobot.event.EventBus;
 
+import static com.example.abc.myapplication.R.string.progress_dialog_sub_message;
+
 public class NumberIncAsyncActivity extends Activity {
-    private Number number;
+    private Number number1, number2;
     private TextView textView1, textView2;
     private Button button1, button2;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +31,12 @@ public class NumberIncAsyncActivity extends Activity {
         button1 = (Button)findViewById(R.id.button1);
         button2 = (Button)findViewById(R.id.button2);
         //init the var number
-        number = new Number(0);
+        number1 = new Number(R.id.number1);
+        number2 = new Number(R.id.number2);
         button1.setOnClickListener(clickButton1);
-
+        button2.setOnClickListener(clickButton2);
+        textView1.setText("" + number1.getNumber());
+        textView2.setText("" + number2.getNumber());
         //register the event bus
         EventBus.getDefault().register(this);
     }
@@ -37,7 +44,13 @@ public class NumberIncAsyncActivity extends Activity {
     private View.OnClickListener clickButton1 = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            number.addOne();
+            number1.addOne();
+        }
+    };
+    private View.OnClickListener clickButton2 = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            number2.addOne();
         }
     };
 
@@ -48,29 +61,16 @@ public class NumberIncAsyncActivity extends Activity {
     }
 
     public void onEventMainThread(Number.NumberChanged numberChanged) {
-        textView1.setText(""+numberChanged.getValue());
-    }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_number_inc_async, menu);
-        return true;
+        ((TextView)findViewById(numberChanged.getId())).setText(""+numberChanged.getValue());
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onEventMainThread(Number.StartUpdate Object) {
+        progressDialog = ProgressDialog.show(NumberIncAsyncActivity.this, getString(R.string.progress_dialog_top_message),
+                getString(R.string.progress_dialog_sub_message));
     }
-    */
+
+    public void onEventMainThread(Number.FinishUpdate Object) {
+        progressDialog.dismiss();
+    }
+
 }
