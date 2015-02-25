@@ -1,6 +1,7 @@
 package com.example.abc.myapplication;
 
 import android.os.AsyncTask;
+//import android.provider.ContactsContract;
 
 import de.greenrobot.event.EventBus;
 
@@ -30,12 +31,30 @@ public class Number {
 
     public Number(int Id) {
         this.Id = Id;
-        this.number = MyApplication.getSharedPref().getInt("" + MyApplication.My_APPLICATION_NUMBER_SAVED + Id, 0);
+        //this.number = MyApplication.getSharedPref().getInt("" + MyApplication.My_APPLICATION_NUMBER_SAVED + Id, 0);
+        if(null == Database.getNumberWithId(Id)) {
+            this.number = 0;
+        }
+        else {
+            this.number = Database.getNumberWithId(Id).number;
+        }
     }
+
+    public Number(int Id, int number) {
+        this.Id = Id;
+        this.number = number;
+    }
+
     public void addOne() {
+        if(null == Database.getNumberWithId(Id)) {
+            this.number = 0;
+        }
+        else {
+            this.number = Database.getNumberWithId(Id).number;
+        }
         this.number++;
         EventBus.getDefault().post(new StartUpdate());//indicate the UI activity to start update
-        new updateNumberAsyncTask().execute(new NumberChanged(number, Id));
+        new updateNumberAsyncTask().execute(new NumberChanged(Id, number));
     }
 
     protected class updateNumberAsyncTask extends AsyncTask {
@@ -47,7 +66,8 @@ public class Number {
             {
                 int j=i*i;
             }
-            MyApplication.getSharedPref().edit().putInt("" + MyApplication.My_APPLICATION_NUMBER_SAVED + Id, number).commit();
+            //MyApplication.getSharedPref().edit().putInt("" + MyApplication.My_APPLICATION_NUMBER_SAVED + Id, number).commit();
+            Database.updateNumber(Number.this);
             NumberChanged numberChangedObj = new NumberChanged(Id, number);
             EventBus.getDefault().post(numberChangedObj);
             return null;
