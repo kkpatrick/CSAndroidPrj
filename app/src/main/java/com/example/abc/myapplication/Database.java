@@ -16,8 +16,8 @@ public class Database extends SQLiteOpenHelper {
     private static final int VERSION = 1;
     private static Database database;
 
-    private static final String KEY_ID = "_id";
-    private static final String KEY_VALUE = "value";
+    public static final String KEY_ID = "_id";
+    public static final String KEY_VALUE = "value";
     private static final String KEY_NAME = "name";
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -38,6 +38,17 @@ public class Database extends SQLiteOpenHelper {
         cv.put(KEY_ID, number.getId());
         //cv.put(KEY_NAME, "");
         getDatabase().getWritableDatabase().insert(TABLE_NAME, null, cv);
+    }
+
+    public static void addNumber() {
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_VALUE, 0);
+        //cv.put(KEY_NAME, "");
+        getDatabase().getWritableDatabase().insert(TABLE_NAME, null, cv);
+    }
+
+    public static void deleteNumber(int Id) {
+        getDatabase().getWritableDatabase().delete(TABLE_NAME, KEY_ID+"="+Id, null);
     }
 
     public static void updateNumber(Number number) {
@@ -80,6 +91,11 @@ public class Database extends SQLiteOpenHelper {
                 newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public static Cursor getAllData() {
+        Cursor cursor=getDatabase().getReadableDatabase().query(TABLE_NAME,null,null,null,null,null,null);
+        return cursor;
     }
 
 }

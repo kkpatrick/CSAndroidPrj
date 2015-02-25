@@ -1,5 +1,6 @@
 package com.example.abc.myapplication;
 
+import android.database.Cursor;
 import android.os.AsyncTask;
 //import android.provider.ContactsContract;
 
@@ -62,14 +63,15 @@ public class Number {
         @Override
         protected Object doInBackground(Object[] params) {
             //loop for delay simulation
+            /*
             for (int i=0;i<= 400000000;i++)
             {
                 int j=i*i;
-            }
+            }*/
             //MyApplication.getSharedPref().edit().putInt("" + MyApplication.My_APPLICATION_NUMBER_SAVED + Id, number).commit();
             Database.updateNumber(Number.this);
-            NumberChanged numberChangedObj = new NumberChanged(Id, number);
-            EventBus.getDefault().post(numberChangedObj);
+            Cursor cursor = Database.getAllData();
+            EventBus.getDefault().post(cursor);
             return null;
         }
 
