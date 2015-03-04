@@ -1,6 +1,7 @@
 package com.example.abc.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
 
@@ -43,6 +45,16 @@ public class myCursorAdapter extends ResourceCursorAdapter {
                 //query database with the button id
                 Database.deleteNumber(numberId);
                 EventBus.getDefault().post(Database.getAllData());
+            }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Number number = new Number(numberId);
+                Toast.makeText(view.getContext(), "list item clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.NUMBER_ID, number.getId());
+                view.getContext().startActivity(intent);
             }
         });
     }

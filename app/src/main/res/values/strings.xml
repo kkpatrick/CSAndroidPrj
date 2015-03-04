@@ -15,4 +15,7 @@
     <string name="progress_dialog_top_message">Updating</string>
     <string name="progress_dialog_sub_message">Please wait.</string>
     <string name="title_activity_list_view">ListViewActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_testfrag">testfrag</string>
+    <string name="title_activity_aaab">aaab</string>
 </resources>
