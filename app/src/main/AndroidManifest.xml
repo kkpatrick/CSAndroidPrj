@@ -57,14 +57,7 @@
             android:name=".DetailActivity"
             android:label="@string/title_activity_detail" >
         </activity>
-        <activity
-            android:name=".testfrag"
-            android:label="@string/title_activity_testfrag" >
-        </activity>
-        <activity
-            android:name=".aaab"
-            android:label="@string/title_activity_aaab" >
-        </activity>
     </application>
 
 </manifest>
+

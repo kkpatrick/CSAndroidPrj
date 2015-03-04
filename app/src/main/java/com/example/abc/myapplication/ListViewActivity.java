@@ -1,58 +1,68 @@
 package com.example.abc.myapplication;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.abc.myInterface.HasGetDetailNumber;
 
 import de.greenrobot.event.EventBus;
 
 
-public class ListViewActivity extends Activity {
-    private ListView listView;
-    private Button addButton;
-    private myCursorAdapter adapter;
-    private Cursor listCursor;
+public class ListViewActivity extends ActionBarActivity implements HasGetDetailNumber{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_view);
 
-        listView = (ListView)findViewById(R.id.listView1);
-        listCursor = Database.getAllData();
-        adapter = new myCursorAdapter(ListViewActivity.this, R.layout.list_item, listCursor, false);
-        listView.setAdapter(adapter);
-
-        addButton = (Button)findViewById(R.id.button1);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //add a new item into the list
-                Database.addNumber();
-                listCursor = Database.getAllData();
-                adapter.swapCursor(listCursor);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            setContentView(R.layout.activity_list_view);
+            if (getFragmentManager().findFragmentById(android.R.id.content) == null) {
+                getFragmentManager().beginTransaction()
+                        .add(android.R.id.content,
+                                new ListMainFragment()).commit();
             }
-        });
+        }
+        else {
+            setContentView(R.layout.activity_list_view_land);
+        }
+    }
 
-        EventBus.getDefault().register(this);
+    @Override
+    public int getDetailNumber() {
+        //int number = Database.getNumberWithId(getIntent().getIntExtra(NUMBER_ID, 0)).getNumber();
+        return 0;
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_list_view, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
-
-    public void onEventMainThread(Cursor c) {
-        adapter.swapCursor(c);
-        listCursor = c;
-    }
-
 }

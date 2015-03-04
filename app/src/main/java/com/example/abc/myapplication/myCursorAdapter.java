@@ -2,6 +2,7 @@ package com.example.abc.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -52,9 +53,15 @@ public class myCursorAdapter extends ResourceCursorAdapter {
             public void onClick(View view) {
                 Number number = new Number(numberId);
                 Toast.makeText(view.getContext(), "list item clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra(DetailActivity.NUMBER_ID, number.getId());
-                view.getContext().startActivity(intent);
+                if(view.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    Intent intent = new Intent(view.getContext(), DetailActivity.class);
+                    intent.putExtra(DetailActivity.NUMBER_ID, number.getId());
+                    view.getContext().startActivity(intent);
+                }
+                else {
+                    //landscape orientation
+                    EventBus.getDefault().post((Integer)numberId);
+                }
             }
         });
     }

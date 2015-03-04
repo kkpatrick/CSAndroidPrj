@@ -14,27 +14,33 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.TextView;
 
+import com.example.abc.myInterface.HasGetDetailNumber;
 
-public class DetailActivity extends ActionBarActivity {
+
+public class DetailActivity extends ActionBarActivity implements HasGetDetailNumber{
     public final static String BUTTON_ID_FOR_DETAIL = "Button Id for detail";
     public final static String NUMBER_VALUE = "Number value.";
     public final static String NUMBER_ID = "Number ID.";
-    private static int numberId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+/*
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+        }*/
+        if (getFragmentManager().findFragmentById(android.R.id.content) == null) {
+            getFragmentManager().beginTransaction()
+                    .add(android.R.id.content,
+                            new DetailFragment()).commit();
         }
-        numberId = getIntent().getIntExtra(NUMBER_ID, 0);
     }
 
-    private static int getDetailNumber() {
-        int number = Database.getNumberWithId(numberId).getNumber();
+    @Override
+    public int getDetailNumber() {
+        int number = Database.getNumberWithId(getIntent().getIntExtra(NUMBER_ID, 0)).getNumber();
         return number;
     }
 
@@ -60,13 +66,6 @@ public class DetailActivity extends ActionBarActivity {
         public PlaceholderFragment() {
         }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-            TextView text = (TextView)rootView.findViewById(R.id.textView1);
-            text.setText(""+ getDetailNumber());
-            return rootView;
-        }
+
     }
 }
