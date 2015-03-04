@@ -24,10 +24,19 @@ public class DetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         text = (TextView)rootView.findViewById(R.id.textView1);
         text.setText("" + ((HasGetDetailNumber) getActivity()).getDetailNumber());
-        //EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         return rootView;
     }
-
+    public void onEventMainThread(Integer numberId) {
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            /*
+            DetailFragment detailFragment =
+                    (DetailFragment) getFragmentManager().findFragmentById(R.id.DetailFragment);
+            detailFragment.update(numberId);
+            */
+            update(numberId);
+        }
+    }
     public void update(Integer numberId) {
         text.setText(Database.getNumberWithId(numberId).getNumber() + "");
     }
@@ -35,6 +44,6 @@ public class DetailFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 }

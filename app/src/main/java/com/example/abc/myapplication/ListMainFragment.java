@@ -52,14 +52,6 @@ public class ListMainFragment extends Fragment {
         listCursor = c;
     }
 
-    public void onEventMainThread(Integer numberId) {
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            DetailFragment detailFragment =
-                    (DetailFragment) getFragmentManager().findFragmentById(R.id.DetailFragment);
-            detailFragment.update(numberId);
-        }
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
