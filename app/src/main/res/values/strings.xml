@@ -18,4 +18,10 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_testfrag">testfrag</string>
     <string name="title_activity_aaab">aaab</string>
+    <string name="title_activity_hurl_main">HurlMainActivity</string>
+    <string name="title_activity_bootstrap">BootstrapActivity</string>
+    <string name="activated">Boot Receiver Activated!</string>
+    <string name="title_activity_battery_monitor">BatteryMonitorActivity</string>
+    <string name="title_activity_camera_main">CameraMainActivity</string>
+    <string name="title_activity_show_image">ShowImageActivity</string>
 </resources>
